@@ -1,0 +1,9 @@
+KeepAlive每隔60s发送一次，handleMessage的msg.what=1
+
+登录一次0，一次3，设置背景图，无用。
+100循环
+1分钟一次1
+logout后一次100
+
+handleMessage动作列表
+1 = 发送KeepAlive请求，每隔1分钟一次。

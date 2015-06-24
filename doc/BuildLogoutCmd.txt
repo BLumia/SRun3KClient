@@ -1,0 +1,15 @@
+﻿Win32_Normal: http://<server-ip>/cgi-bin/do_logout
+	uid=<java:m_uid_str>
+
+Win32_RADIUS: http://<server-ip>/cgi-bin/do_radius_logout
+	uid=<java:m_uid_str>
+
+Mobile_srunPortal: http://<server-ip>/cgi-bin/srun_portal
+	action=logout
+	ac_id=6 //default_ac_id=0x6
+	username=<用户名>
+	mac=URLEncoder.encode("明文MAC地址")
+	type=1
+
+Win32_Normal调用后的返回值，实测不需要uid也能断开本机网络。
+"连接已断开"，UTF-8编码 [-24, -65, -98, -26, -114, -91, -27, -73, -78, -26, -106, -83, -27, -68, -128]。

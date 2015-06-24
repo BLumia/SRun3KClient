@@ -1,0 +1,45 @@
+﻿WIN32_AUTH_MODE = 0
+MOBILE_AUTH_MODE = 1
+PORTAL_AUTH_MODE = 2
+STD_AUTH_PROTO = auth_proto_ex = 0
+m_drop_str 使用"使用免费流量"或者说是Chinanet，使用则值为"1"否则为"0"
+
+String mykey = (new Date().getTime() / 1000 - 时间差_秒) / 60;
+String encodedPassword = EnCode("明文密码", mykey);
+String encodedMAC = EnCode("明文MAC地址", mykey);//明文mac地址可能需要toLowerCase()
+
+Win32_Normal: http://<server-ip>/cgi-bin/do_login
+	type=2
+	username=<用户名>
+	password=URLEncoder.encode("已加密的密码", "gb2312");
+	drop=java:m_drop_str
+	n=100
+	mac=URLEncoder.encode("java:encodedMAC")
+	ip=<IP地址>
+
+Win32_RADIUS: http://<server-ip>/cgi-bin/do_radius_login
+	java: mykey="95387643"，密码需要重新加密，mac地址换为明文的。
+	type=11 //type=0xb
+	username=<用户名>
+	password=URLEncoder.encode("已加密的密码", "gb2312");
+	drop=java:m_drop_str
+	n=100
+	mac=URLEncoder.encode("明文MAC地址")
+	ip=<IP地址>
+
+Mobile_srunPortal: http://<server-ip>/cgi-bin/srun_portal
+	java: mykey="1234567890"，密码需要重新加密，使用明文mac地址。
+	type=1
+	action=login
+	username=<用户名>
+	password=<明文密码>
+	drop=0
+	n=100
+	mac=URLEncoder.encode("明文MAC地址")
+	ip=<IP地址>
+	ac_id=6 //default_ac_id=0x6
+
+返回值示例
+Win32_Normal:
+155817118534544,9423665714989891585,0,0,0
+uid,未知,未知,未知,未知

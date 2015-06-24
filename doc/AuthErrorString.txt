@@ -1,0 +1,17 @@
+user_tab_error 认证程序未启动
+username_error 用户名错误
+password_error 密码错误
+non_auth_error 您无须认证可直接上网
+status_error 您已欠费，请尽快充值。
+available_error 帐号已禁用。
+sync_error 正在同步资料，2分钟后再试。
+delete_error 您的帐号已经被删除
+ip_exist_error IP已存在，请稍后再试。
+usernum_error 在线人数已满，请稍后再试。
+online_num_error 帐号的登录人数已满，请远程注销之后再登录。
+mode_error 禁止客户端登录，请使用WEB登录。
+flux_error 您的流量已用尽。
+minutes_error 您的时长已用尽。
+ip_error 您的IP地址不合法
+time_policy_error 当前时段不允许连接。
+version_error 版本错误
