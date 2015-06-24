@@ -33,6 +33,7 @@ import javax.swing.UIManager;
 
 import oing.java.reveng.srun3kclient.client.Srun3kClient;
 import oing.java.reveng.srun3kclient.entity.HardwareAddressEntity;
+import oing.java.reveng.srun3kclient.localization.LocalizationMessageBundle;
 import oing.java.reveng.srun3kclient.util.ConfigurationUtil;
 
 public class JFrameMain extends JFrame {
@@ -48,6 +49,7 @@ public class JFrameMain extends JFrame {
 	private JPasswordField mJPasswordFieldPassword = null;
 	private JComboBox<HardwareAddressEntity> mJComboBoxMACAddress = null;
 	private JTextField mJTextFieldServerIP = null;
+	private JCheckBox mJCheckBoxSaveConfig = null;
 	private JCheckBox mJCheckBoxGoSystemTray = null;
 	private JButton mJButtonLogin = null;
 	private JButton mJButtonLogout = null;
@@ -60,6 +62,7 @@ public class JFrameMain extends JFrame {
 			e.printStackTrace();
 		}
 
+		LocalizationMessageBundle.loadDefault();
 		initUI();
 		initSystemTray();
 		initListeners();
@@ -70,7 +73,7 @@ public class JFrameMain extends JFrame {
 		}
 		loadConfiguration();
 
-		setSize(270, 280);
+		setSize(270, 300);
 		{
 			// show main jframe in center of screen
 			DisplayMode lDisplayMode = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode();
@@ -100,7 +103,7 @@ public class JFrameMain extends JFrame {
 
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("srun3k_original_icon.png")));
 
-		JLabel lJLabelAccount = new JLabel("Account:", SwingConstants.RIGHT);
+		JLabel lJLabelAccount = new JLabel(LocalizationMessageBundle.MESSAGE_account, SwingConstants.RIGHT);
 		lGridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
 		lGridBagConstraints.gridx = 0;
 		lGridBagConstraints.gridy = 0;
@@ -113,7 +116,7 @@ public class JFrameMain extends JFrame {
 		lGridBagConstraints.weightx = 0.7;
 		lContainer.add(mJTextFieldAccount, lGridBagConstraints);
 
-		JLabel lJLabelPassword = new JLabel("Password:", SwingConstants.RIGHT);
+		JLabel lJLabelPassword = new JLabel(LocalizationMessageBundle.MESSAGE_password, SwingConstants.RIGHT);
 		lGridBagConstraints.gridx = 0;
 		lGridBagConstraints.gridy = 1;
 		lGridBagConstraints.weightx = 0.3;
@@ -124,7 +127,7 @@ public class JFrameMain extends JFrame {
 		lGridBagConstraints.weightx = 0.7;
 		lContainer.add(mJPasswordFieldPassword, lGridBagConstraints);
 
-		JLabel lJLabelLocalMACAddress = new JLabel("MAC Address:");
+		JLabel lJLabelLocalMACAddress = new JLabel(LocalizationMessageBundle.MESSAGE_mac_address);
 		lJLabelLocalMACAddress.setHorizontalAlignment(SwingConstants.RIGHT);
 		lGridBagConstraints.gridx = 0;
 		lGridBagConstraints.gridy = 2;
@@ -139,7 +142,7 @@ public class JFrameMain extends JFrame {
 		lGridBagConstraints.weightx = 0.7;
 		lContainer.add(mJComboBoxMACAddress, lGridBagConstraints);
 
-		JLabel lJLabelServerIP = new JLabel("Server IP:");
+		JLabel lJLabelServerIP = new JLabel(LocalizationMessageBundle.MESSAGE_server_ip);
 		lJLabelServerIP.setHorizontalAlignment(SwingConstants.RIGHT);
 		lGridBagConstraints.gridx = 0;
 		lGridBagConstraints.gridy = 3;
@@ -159,10 +162,15 @@ public class JFrameMain extends JFrame {
 		lGridBagConstraints.anchor = GridBagConstraints.PAGE_START;
 		lContainer.add(lJPanelButtom, lGridBagConstraints);
 
-		lGridBagConstraints.gridwidth = 1;
-		mJCheckBoxGoSystemTray = new JCheckBox("Go system tray when closing window");
+		mJCheckBoxSaveConfig = new JCheckBox(LocalizationMessageBundle.MESSAGE_save_config_password_etc);
 		lGridBagConstraints.gridx = 0;
 		lGridBagConstraints.gridy = 0;
+		lGridBagConstraints.gridwidth = 2;
+		lJPanelButtom.add(mJCheckBoxSaveConfig, lGridBagConstraints);
+
+		mJCheckBoxGoSystemTray = new JCheckBox(LocalizationMessageBundle.MESSAGE_go_system_tray);
+		lGridBagConstraints.gridx = 0;
+		lGridBagConstraints.gridy = 1;
 		lGridBagConstraints.weightx = 0;
 		lGridBagConstraints.gridwidth = 2;
 		lJPanelButtom.add(mJCheckBoxGoSystemTray, lGridBagConstraints);
@@ -170,23 +178,23 @@ public class JFrameMain extends JFrame {
 		mJCheckBoxGoSystemTray.setEnabled(SystemTray.isSupported());
 		mJCheckBoxGoSystemTray.setSelected(mJCheckBoxGoSystemTray.isEnabled());
 
-		mJButtonLogin = new JButton("Login");
+		mJButtonLogin = new JButton(LocalizationMessageBundle.MESSAGE_login);
 		lGridBagConstraints.gridx = 0;
-		lGridBagConstraints.gridy = 1;
+		lGridBagConstraints.gridy = 2;
 		lGridBagConstraints.gridwidth = 1;
 		lGridBagConstraints.weightx = 0.5;
 		lJPanelButtom.add(mJButtonLogin, lGridBagConstraints);
 
-		mJButtonLogout = new JButton("Logout");
+		mJButtonLogout = new JButton(LocalizationMessageBundle.MESSAGE_logout);
 		lGridBagConstraints.gridx = 1;
 		lJPanelButtom.add(mJButtonLogout, lGridBagConstraints);
 
-		mJLabelStatus = new JLabel("Ready");
+		mJLabelStatus = new JLabel(LocalizationMessageBundle.MESSAGE_ready);
 		mJLabelStatus.setHorizontalAlignment(SwingConstants.CENTER);
 		mJLabelStatus.setPreferredSize(new Dimension(128, 26));
 		lGridBagConstraints.anchor = GridBagConstraints.CENTER;
 		lGridBagConstraints.gridx = 0;
-		lGridBagConstraints.gridy = 2;
+		lGridBagConstraints.gridy = 3;
 		lGridBagConstraints.gridwidth = 2;
 		lGridBagConstraints.insets = new Insets(0, 0, 0, 0);
 		lJPanelButtom.add(mJLabelStatus, lGridBagConstraints);
@@ -194,6 +202,7 @@ public class JFrameMain extends JFrame {
 		lGridBagConstraints.gridy = 5;
 		lGridBagConstraints.anchor = GridBagConstraints.PAGE_END;
 		JLabel lJLabelAuthor = new JLabel("Srun3kClientGUI by oing9179");
+		lJLabelAuthor.setToolTipText("Version: " + Main.VERSION);
 		lJLabelAuthor.setHorizontalAlignment(SwingConstants.CENTER);
 		lGridBagConstraints.gridx = 0;
 		lGridBagConstraints.gridwidth = 2;
@@ -253,6 +262,12 @@ public class JFrameMain extends JFrame {
 				frame.setVisible(!frame.isVisible());
 			}
 		});
+		mJComboBoxMACAddress.addItemListener(new ItemListener() {
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				mJComboBoxMACAddress_itemStateChanged(e);
+			}
+		});
 		mJButtonLogin.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -265,10 +280,9 @@ public class JFrameMain extends JFrame {
 				mJButtonLogout_actionPerformed(e);
 			}
 		});
-		mJComboBoxMACAddress.addItemListener(new ItemListener() {
+		mJCheckBoxSaveConfig.addActionListener(new ActionListener() {
 			@Override
-			public void itemStateChanged(ItemEvent e) {
-				mJComboBoxMACAddress_itemStateChanged(e);
+			public void actionPerformed(ActionEvent e) {
 			}
 		});
 	}
@@ -286,6 +300,32 @@ public class JFrameMain extends JFrame {
 		mJPasswordFieldPassword.setText(ConfigurationUtil.get(ConfigurationUtil.KEY_PASSWORD));
 		mJComboBoxMACAddress.setSelectedItem(ConfigurationUtil.get(ConfigurationUtil.KEY_MAC_ADDRESS));
 		mJTextFieldServerIP.setText(ConfigurationUtil.get(ConfigurationUtil.KEY_SERVER_IP));
+		mJCheckBoxSaveConfig.setSelected(Boolean.parseBoolean(ConfigurationUtil.get(ConfigurationUtil.KEY_SAVE_CONFIG)));
+	}
+
+	private void saveConfiguration() {
+		String lStrMACAddress = null;
+		Object lObjSelectedItem = mJComboBoxMACAddress.getSelectedItem();
+
+		if (lObjSelectedItem.getClass().equals(HardwareAddressEntity.class)) {
+			lStrMACAddress = ((HardwareAddressEntity) lObjSelectedItem).getMacAddress();
+		} else {
+			lStrMACAddress = lObjSelectedItem.toString();
+		}
+
+		if (mJCheckBoxSaveConfig.isSelected()) {
+			ConfigurationUtil.put(ConfigurationUtil.KEY_ACCOUNT, mJTextFieldAccount.getText());
+			ConfigurationUtil.put(ConfigurationUtil.KEY_PASSWORD, new String(mJPasswordFieldPassword.getPassword()));
+		} else {
+			ConfigurationUtil.put(ConfigurationUtil.KEY_ACCOUNT, "");
+			ConfigurationUtil.put(ConfigurationUtil.KEY_PASSWORD, "");
+		}
+		// save hardware address and server ip anyway.
+		ConfigurationUtil.put(ConfigurationUtil.KEY_MAC_ADDRESS, lStrMACAddress);
+		ConfigurationUtil.put(ConfigurationUtil.KEY_SERVER_IP, mJTextFieldServerIP.getText());
+		ConfigurationUtil.put(ConfigurationUtil.KEY_SAVE_CONFIG, Boolean.toString(mJCheckBoxSaveConfig.isSelected()));
+
+		ConfigurationUtil.save();
 	}
 
 	private void mJButtonLogin_actionPerformed(ActionEvent e) {
@@ -299,18 +339,14 @@ public class JFrameMain extends JFrame {
 		}
 
 		mSrun3kClient.loginAsync(mJTextFieldAccount.getText(), new String(mJPasswordFieldPassword.getPassword()), lStrMACAddress, mJTextFieldServerIP.getText());
-		mJLabelStatus.setText("Logging in...");
+		mJLabelStatus.setText(LocalizationMessageBundle.MESSAGE_logging_in);
 
-		ConfigurationUtil.put(ConfigurationUtil.KEY_ACCOUNT, mJTextFieldAccount.getText());
-		ConfigurationUtil.put(ConfigurationUtil.KEY_PASSWORD, new String(mJPasswordFieldPassword.getPassword()));
-		ConfigurationUtil.put(ConfigurationUtil.KEY_MAC_ADDRESS, lStrMACAddress);
-		ConfigurationUtil.put(ConfigurationUtil.KEY_SERVER_IP, mJTextFieldServerIP.getText());
-		ConfigurationUtil.save();
+		saveConfiguration();
 	}
 
 	private void mJButtonLogout_actionPerformed(ActionEvent e) {
 		mSrun3kClient.logoutAsync();
-		mJLabelStatus.setText("Logging out...");
+		mJLabelStatus.setText(LocalizationMessageBundle.MESSAGE_logging_out);
 	}
 
 	private void mJComboBoxMACAddress_itemStateChanged(ItemEvent e) {
@@ -354,9 +390,9 @@ public class JFrameMain extends JFrame {
 		@Override
 		public void onLogin(boolean lbSuccess, String lStrCause) {
 			if (lbSuccess) {
-				mJLabelStatus.setText("Logged in.");
+				mJLabelStatus.setText(LocalizationMessageBundle.MESSAGE_logged_in);
 			} else {
-				mJLabelStatus.setText("Login failed, " + lStrCause);
+				mJLabelStatus.setText(LocalizationMessageBundle.MESSAGE_login_failed + lStrCause);
 			}
 			mJLabelStatus.setToolTipText(mJLabelStatus.getText());
 		}
@@ -368,9 +404,9 @@ public class JFrameMain extends JFrame {
 		@Override
 		public void onLogout(String lStrCause) {
 			if (lStrCause == null) {
-				mJLabelStatus.setText("Logged out.");
+				mJLabelStatus.setText(LocalizationMessageBundle.MESSAGE_logged_out);
 			} else {
-				mJLabelStatus.setText("Logout failed. " + lStrCause);
+				mJLabelStatus.setText(LocalizationMessageBundle.MESSAGE_logout_failed + lStrCause);
 			}
 			mJLabelStatus.setToolTipText(mJLabelStatus.getText());
 		}

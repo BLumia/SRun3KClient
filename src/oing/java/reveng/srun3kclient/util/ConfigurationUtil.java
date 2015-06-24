@@ -15,6 +15,7 @@ public class ConfigurationUtil {
 	public static final String KEY_PASSWORD = "password";
 	public static final String KEY_MAC_ADDRESS = "mac_address";
 	public static final String KEY_SERVER_IP = "server_ip";
+	public static final String KEY_SAVE_CONFIG = "save_config";
 
 	private static String mStrAppStartPath = null;
 	private static Properties mProperties = new Properties();

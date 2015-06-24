@@ -6,7 +6,7 @@ import java.util.Scanner;
 import oing.java.reveng.srun3kclient.client.Srun3kClient;
 
 public class Main {
-	private final static String VERSION = "0.2";
+	public final static String VERSION = "0.2.3";
 
 	private final static int CLIENTSTATE_OFFLINE = 0;
 	private final static int CLIENTSTATE_LOGGING_IN = 1;
