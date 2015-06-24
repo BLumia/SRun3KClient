@@ -10,7 +10,7 @@
 
 1. 通过终端/控制台
 <pre><code>
-	java -jar Srun3kClient.jar <UserNameHere> <PasswordHere> <MAC Address Here> <ServerIP Here>
+	java -jar Srun3kClient.jar &lt;UserNameHere&rt; &lt;PasswordHere&rt; &lt;MAC Address Here&rt; &lt;ServerIP Here&rt;
 	//e.g. java -jar Srun3kClient_v0.2.3.jar 144316090087 pasSw0rd E0:CA:5C:ED:FC:18 10.12.1.29
 	//注：以上示例账号密码等信息均为瞎编的
 </code></pre>
